@@ -1,0 +1,16 @@
+{
+  "username":"",
+  "platofrm":"0-5",
+  /*
+   0 = facebook
+   1 = twitter
+   2 = google+
+   3 = reddit
+   4 = instagram
+   5 = forchan
+  */
+  "hyperlink": "",
+  "text": "",
+  "tags": [],
+  "image_urls": []
+}
