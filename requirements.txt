@@ -34,6 +34,7 @@ ssh-import-id==5.5
 system-service==0.3
 tensorflow-gpu==1.4.0
 tensorflow-tensorboard==0.4.0rc2
+tweepy==3.5.0
 ubuntu-drivers-common==0.0.0
 ufw==0.35
 unattended-upgrades==0.1
