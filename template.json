@@ -1,6 +1,6 @@
 {
   "username":"",
-  "platofrm":"0-5",
+  "platform":"0-5",
   /*
    0 = facebook
    1 = twitter
@@ -12,5 +12,10 @@
   "hyperlink": "",
   "text": "",
   "tags": [],
-  "image_urls": []
+  "image_urls": [],
+  "friends": [],    //Could alternate as followers, but..
+  "followers": [],     //Actually, facebook has both.
+  "followings": [],  //Facebook terms: Liked pages
+  "groups": []
+
 }
