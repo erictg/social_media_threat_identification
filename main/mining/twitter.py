@@ -29,56 +29,42 @@ api = tweepy.API(auth)
 class TwitterUser:
     # Note the abbreviations if any
     def __init__(self, id):
-        self.identification = id
-
-    def getAPI(self):
-        #TODO get actual user data
-        return tweepy.API(auth)
+        self.usr = api.get_user(id)
 
     def getUName(self):
-        return tweepy.Cursor(self.getAPI().user_timeline).items[1]._json["screen_name"]
+        return self.usr.screen_name
 
     def getRName(self):
-        return self.getAPI() #what a pie
+        return self.usr.name
 
     def getText(self):
-        stuff = self.getData("text")
+        stuff = self.getData(self.usr.user_timeline, "text")
         strText = ""
         #append applied text
-        strText += (api.me().description + ' ')
+        strText += (self.usr.me().description + ' ')
         #append tweets
         for txt in stuff:
             strText += (txt + ' ')
         strText = noSillyTrump(strText)
         return strText
 
-    def getImages(self):
-        # TODO write this
-        return None
+    # def getImages(self):
+    #     # TODO write this
+    #     return None
 
-    def getData(self, jsonProperty):
+    def getData(self, location, jsonProperty):
         stuff = []
-        for data in tweepy.Cursor(self.getAPI().user_timeline).items():
+        for data in tweepy.Cursor(location).items():
             stuff.append(data._json[jsonProperty])
         return stuff
 
 
     def getAssociations(self):
-        stuff = []
-        for friend in tweepy.Cursor(api.friends).items():
-            stuff.append(friend._json["screen_name"])
+        stuff = self.getData(self.usr.friends, "screen_name")
         return stuff
 
 
 ######## bullshit #####
-
-def gJS():
-    stuff = []
-    for tweet in tweepy.Cursor(api.user_timeline).items():
-        stuff.append(tweet._json)
-        print(stuff)
-    return stuff
-
 
 def noSillyTrump(stuff):  # Will be implemented better eventually
     stuff.replace('...', '')
@@ -87,4 +73,6 @@ def noSillyTrump(stuff):  # Will be implemented better eventually
 
 ######## /bullshit #####
 
-prezi = TwitterUser(0)
+prezi = TwitterUser("realDonaldTrump")
+print(prezi.getText())
+print(prezi.getUName())
