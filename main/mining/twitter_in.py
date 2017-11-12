@@ -62,10 +62,11 @@ class TwitterUser:
             stuff.append(noSillyTrump(twee._json["text"]))
         return stuff
 
+    @property
     def getAssociations(self): #Does not work
         stuff = []
         for friend in tweepy.Cursor(api.user_timeline(self.getUName())).items():
-            friend._json
+            stuff.append(friend._json)
         return stuff
         # stuff = []
         # friends = self.usr.friends
@@ -79,8 +80,8 @@ class TwitterUser:
             "username": str(self.getUName()),
             "realname": str(self.getRName()),
             "text": self.getTweets(),
-            "hyperlink": "https://wwww.twitter.com/"+self.getUName(),
-            "associations": self.getAssociations()
+            "hyperlink": "https://twitter.com/"+self.getUName(),
+            "associations": [] #self.getAssociations
         }
 
 def noSillyTrump(stuff):  # Upon your request, ignore the bad look for now
