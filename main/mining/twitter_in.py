@@ -3,6 +3,8 @@ import tweepy
 #from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from main.mining import template_in as TI
+from main.helper import mining_push as push
+from time import sleep
 
 consumer_key = 'LENjmBsK2AhttoeGCidENnWqh'
 consumer_secret = 'zkNjS3bdPek8q5NVfTSIqFRhW4ib7ra0OM824RZKpbZORQlv9W'
@@ -14,7 +16,7 @@ auth.set_access_token(access_token, access_secret)
 
 api = tweepy.API(auth)
 
-# TODO LIST (remove as programmed and completed)
+#List
 # TwitterUser
 #   Username
 #   Realname
@@ -46,25 +48,48 @@ class TwitterUser:
             stuff.append(noSillyTrump(twee._json["text"]))
         return stuff
 
-    @property
     def getAssociations(self): #Does not work
-        return None #TODO Fix this weird shit
         # stuff = []
-        # for friend in tweepy.Cursor(api.user_timeline(self.getUName())).items():
-        #     stuff.append(friend._json)
+        # for friend in tweepy.Cursor(api.friends, self.getUName()).items():
+        #     if (friend.__next__ == None):
+        #         print("Break out")
+        #         break;
+        #     stuff.append(friend)
+        #     print(stuff)
         # return stuff
+        return None #TODO fix this
 
-    def getJSON(self):
+    def getIdDump(self):
+        # stuff = self.getAssociations()
+        # for thing in stuff:
+        #     try:
+        #         TwitterUser(thing)
+        #     except tweepy.TweepError() as err:
+        #         print("User not available, next!")
+        # print(self.getUName() + "has been torn apart :)")
+        return None #TODO fix this
+
+    def getJSON(self, tweet):
         return {
             "platform": 1,
             "username": str(self.getUName()),
             "realname": str(self.getRName()),
             "text": self.getText(),
-            "tweets": self.getTweets(),
+            "tweet": tweet,
             "hyperlink": "https://twitter.com/"+self.getUName(),
-            "associations": [], #self.getAssociations
+            "associations": [], #self.getAssociations()
             "processed": False
         }
 
+    def pushAllTweets(self):
+        sleep(0.07)
+        tweets = self.getTweets()
+        for tweet in tweets:
+            push.send(self.getJSON(tweet))
+        print("yay")
+        #self.getIdDump()
+
 def noSillyTrump(stuff):  # Upon your request, ignore the bad look for now
     return stuff.replace("...", "").replace("..", ".").replace("…", "")
+
+#print(TwitterUser("erictg97").getAssociations())
