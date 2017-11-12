@@ -29,13 +29,13 @@ jobj = json.load(jf)
 jobj = jobj['bounds']
 file_name = 1
 f_start = -1
-for ff in xrange(len(jobj)):
+for ff in range(len(jobj)):
     if ff > f_start:
         img = cv2.imread("./" + jobj[ff]['filename'])
-        print jobj[ff]['filename']
+        print(jobj[ff]['filename'])
         row,col,chn = img.shape
         if chn > 1:
-            for ann in xrange(len(jobj[ff]['annotations'])):
+            for ann in range(len(jobj[ff]['annotations'])):
                 crop = jobj[ff]['annotations'][ann]
                 y_axis, x_axis = min(max(crop['y'], 0), row), min(max(crop['x'], 0), col)
                 img_c = img[y_axis : min(y_axis + crop['height'], row), x_axis : min(x_axis + crop['width'], col)]

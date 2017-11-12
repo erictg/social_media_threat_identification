@@ -18,14 +18,14 @@ for files in p_folders:
 	if ".jpg" in files:
 		p_table.append("gun_images" + p_location + files)
 
-print "imfdb", len(p_table)
+print ("imfdb", len(p_table))
 
 n_table = []
 for files in n_folders:
 	if ".jpg" in files:
 		n_table.append("gun_images" + n_location + files)
 
-print "negative",len(n_table)
+print ("negative",len(n_table))
 
 p_table = np.random.permutation(p_table)
 n_table = np.random.permutation(n_table)
@@ -67,7 +67,7 @@ for ele in random_array:
 	obj.write("\n")
 	count += 1
 
-print "Completed", count
-print "Completed Test"
-print "Positive in Train", count_tr
-print "Positive in Validate", count_v
+print ("Completed", count)
+print ("Completed Test")
+print ("Positive in Train", count_tr)
+print ("Positive in Validate", count_v)

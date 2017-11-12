@@ -19,9 +19,9 @@ for ff in files:
         img_rand = randint(0, b_len - 1)
         bk_img = cv2.imread(bckg + b_files[img_rand])
         bk_img = cv2.resize(bk_img, (112,112))
-        for r in xrange(row):
-            for c in xrange(col):
+        for r in range(row):
+            for c in range(col):
                 if sum(img[r,c]) >= 750:
                     img[r,c] = bk_img[r,c]
         cv2.imwrite(location + "C_" + ff, img)
-        print ff,"processed .." 
+        print (ff,"processed .." )
