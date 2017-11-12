@@ -13,7 +13,6 @@ auth.set_access_token(access_token, access_secret)
 
 api = tweepy.API(auth)
 
-
 # sorted(set(list)) just a reference to myself, reviving python syntax.
 
 # TODO LIST (remove as programmed and completed)
@@ -23,59 +22,55 @@ api = tweepy.API(auth)
 #   Text
 #       Profile Desc
 #       Tweets
-#   Img[]
-#       Profile img
-#       Posted img
-#   Followers
-#   Followings
+#   Tweets
+#   Retweets
+#   Associations
 
 class TwitterUser:
     # Note the abbreviations if any
-    def __init__(self, uName, text, imgs, followers, following):
-        self.uName = getUName()
-        self.text = getText()
-        self.imgs = getImages()
-        self.followers = getFollowers()
-        self.following = getFollowings()
+    def __init__(self, id):
+        self.identification = id
+
+    def getAPI(self):
+        #TODO get actual user data
+        return tweepy.API(auth)
+
+    def getUName(self):
+        return tweepy.Cursor(self.getAPI().user_timeline).items[1]._json["screen_name"]
+
+    def getRName(self):
+        return self.getAPI() #what a pie
+
+    def getText(self):
+        stuff = self.getData("text")
+        strText = ""
+        #append applied text
+        strText += (api.me().description + ' ')
+        #append tweets
+        for txt in stuff:
+            strText += (txt + ' ')
+        strText = noSillyTrump(strText)
+        return strText
+
+    def getImages(self):
+        # TODO write this
+        return None
+
+    def getData(self, jsonProperty):
+        stuff = []
+        for data in tweepy.Cursor(self.getAPI().user_timeline).items():
+            stuff.append(data._json[jsonProperty])
+        return stuff
 
 
-def getUName():
-    # TODO write this
-    return None
-
-def getGName():
-    return None
-
-def getText():
-    stuff = getData("text")
-    strText = ""
-    for txt in stuff:
-        strText += (txt + ' ')
-    strText = noSillyTrump(strText)
-    return strText
+    def getAssociations(self):
+        stuff = []
+        for friend in tweepy.Cursor(api.friends).items():
+            stuff.append(friend._json["screen_name"])
+        return stuff
 
 
-def getImages():
-    # TODO write this
-    return None
-
-
-def getFollowers():
-    # TODO write this
-    return None
-
-
-def getFollowings():
-    # TODO write this
-    return None
-
-
-def getData(jsonProperty):
-    stuff = []
-    for tweet in tweepy.Cursor(api.user_timeline).items():
-        stuff.append(tweet._json[jsonProperty])
-        print(stuff)
-    return stuff
+######## bullshit #####
 
 def gJS():
     stuff = []
@@ -90,13 +85,6 @@ def noSillyTrump(stuff):  # Will be implemented better eventually
     stuff.replace('…', '')
     return stuff
 
-print(gJS())
+######## /bullshit #####
 
-print(getText())
-
-# Order of operations
-#   Get ya shit together
-#   Gather the shit
-#   Organize the shit
-#   Reorganize the shit
-#   Repeat for Facebook with dat liboyary
+prezi = TwitterUser(0)
