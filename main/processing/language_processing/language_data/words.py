@@ -1,7 +1,7 @@
 import csv
 
-LEXICON = 'lexicon.csv'
-SWEAR_WORDS = "swear_words.csv"
+LEXICON = '../processing/language_processing/language_data/lexicon.csv'
+SWEAR_WORDS = "../processing/language_processing/language_data/swear_words.csv"
 
 def getLexicon():
     dict = {}
@@ -17,5 +17,11 @@ def getSwearWords():
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in spamreader:
             arr.extend(row[1])
-    return dict
+    return arr
 
+def getBigotWords():
+    with open("../processing/language_processing/language_data/bigot.txt") as f:
+        content = f.readlines()
+    # you may also want to remove whitespace characters like `\n` at the end of each line
+    content = [x.strip() for x in content]
+    return content
