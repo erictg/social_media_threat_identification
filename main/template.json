@@ -14,9 +14,7 @@
   "text": "",
   "tags": [],
   "image_urls": [],
-  "friends": [],    //Could alternate as followers, but..
-  "followers": [],     //Actually, facebook has both.
-  "followings": [],  //Facebook terms: Liked pages
+  "associations": [],
   "groups": []
 
 }
