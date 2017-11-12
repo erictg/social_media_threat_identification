@@ -37,14 +37,10 @@ class TwitterUser:
         return self.usr.name
 
     def getText(self, *stuff):
-        strBlu = ""
-        for tweetxt in self.getTweets():
-            strBlu += tweetxt
-        return strBlu
+        return self.usr.description
 
     def getTweets(self):
         stuff = []
-        stuff.append(self.usr.description)
         tweets = api.user_timeline(screen_name=self.getUName(), count=200)
         for twee in tweets:
             stuff.append(noSillyTrump(twee._json["text"]))
@@ -60,10 +56,11 @@ class TwitterUser:
 
     def getJSON(self):
         return {
-            "platform": "1",
+            "platform": 1,
             "username": str(self.getUName()),
             "realname": str(self.getRName()),
             "text": self.getText(),
+            "tweets": self.getTweets(),
             "hyperlink": "https://twitter.com/"+self.getUName(),
             "associations": [], #self.getAssociations
             "processed": False
