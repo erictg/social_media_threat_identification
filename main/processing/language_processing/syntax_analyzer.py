@@ -11,3 +11,5 @@ def sendSentence(sentence):
     print(r.status_code)
     print(r.json())
 
+init()
+sendSentence("fuck this shit")
