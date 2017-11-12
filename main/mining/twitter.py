@@ -38,41 +38,44 @@ class TwitterUser:
         return self.usr.name
 
     def getText(self):
-        stuff = self.getData(self.usr.user_timeline, "text")
-        strText = ""
-        #append applied text
-        strText += (self.usr.me().description + ' ')
-        #append tweets
+        stuff = []; strText = self.usr.description + " "
+        tweets = api.user_timeline(screen_name = self.getUName(), count=200)
         for txt in stuff:
             strText += (txt + ' ')
-        strText = noSillyTrump(strText)
+            strText = noSillyTrump(strText)
         return strText
 
-    # def getImages(self):
-    #     # TODO write this
-    #     return None
-
-    def getData(self, location, jsonProperty):
-        stuff = []
-        for data in tweepy.Cursor(location).items():
-            stuff.append(data._json[jsonProperty])
-        return stuff
-
+        # stuff = self.getData(self.usr.user_timeline, "text")
+        # strText = ""
+        # strText += (self.usr.me().description + ' ')
+        # for txt in stuff:
+        #     strText += (txt + ' ')
+        # #strText = noSillyTrump(strText)
+        # return strText
 
     def getAssociations(self):
         stuff = self.getData(self.usr.friends, "screen_name")
         return stuff
 
+    # #Refactoring bullshit
+    # def getData(self, location, jsonProperty):
+    #     stuff = []
+    #     for data in tweepy.Cursor(location).items():
+    #         stuff.append(data._json[jsonProperty])
+    #     return stuff
+
 
 ######## bullshit #####
 
 def noSillyTrump(stuff):  # Will be implemented better eventually
-    stuff.replace('...', '')
-    stuff.replace('…', '')
+    stuff.replace("...", "")
+    stuff.replace("…", "")
     return stuff
 
 ######## /bullshit #####
 
 prezi = TwitterUser("realDonaldTrump")
-print(prezi.getText())
 print(prezi.getUName())
+print(prezi.getRName())
+#print(prezi.getAssociations())
+print(prezi.getText())
