@@ -19,6 +19,7 @@ api = tweepy.API(auth)
 # TODO LIST (remove as programmed and completed)
 # TwitterUser
 #   Username
+#   Realname
 #   Text
 #       Profile Desc
 #       Tweets
@@ -42,9 +43,11 @@ def getUName():
     # TODO write this
     return None
 
+def getGName():
+    return None
 
 def getText():
-    stuff = getData()
+    stuff = getData("text")
     strText = ""
     for txt in stuff:
         strText += (txt + ' ')
@@ -67,10 +70,17 @@ def getFollowings():
     return None
 
 
-def getData():
+def getData(jsonProperty):
     stuff = []
     for tweet in tweepy.Cursor(api.user_timeline).items():
-        stuff.append(tweet._json["text"])
+        stuff.append(tweet._json[jsonProperty])
+        print(stuff)
+    return stuff
+
+def gJS():
+    stuff = []
+    for tweet in tweepy.Cursor(api.user_timeline).items():
+        stuff.append(tweet._json)
         print(stuff)
     return stuff
 
@@ -80,6 +90,7 @@ def noSillyTrump(stuff):  # Will be implemented better eventually
     stuff.replace('…', '')
     return stuff
 
+print(gJS())
 
 print(getText())
 

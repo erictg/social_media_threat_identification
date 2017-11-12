@@ -1,6 +1,7 @@
 {
-  "username":"",
-  "platform":"0-5",
+  "username": "",
+  "realname": "",
+  "platform": "0-5",
   /*
    0 = facebook
    1 = twitter
