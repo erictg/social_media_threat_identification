@@ -1,3 +1,4 @@
-nlp is for the python 2.7 SyntaxNet needed or NLP
+This program identifies hate speech accross social media
 
-main is or python 3.5 everything else
+
+FYI -- the gun vision thingy is open source :-)
