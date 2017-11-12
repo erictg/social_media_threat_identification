@@ -1,9 +1,10 @@
 import tweepy
+import time
 #from tweepy import Stream
 #from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
-from main.mining import template_in as TI
-from main.helper import mining_push as push
+import template_in as TI
+import mining_push as push
 from time import sleep
 
 consumer_key = 'LENjmBsK2AhttoeGCidENnWqh'
@@ -14,7 +15,7 @@ access_secret = 'cDOV82556X9RkwoqTFxRitYPWx2TuvdTHB5K97BOxnuv8'
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
 
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 
 #List
 # TwitterUser
@@ -49,25 +50,28 @@ class TwitterUser:
         return stuff
 
     def getAssociations(self): #Does not work
-        # stuff = []
-        # for friend in tweepy.Cursor(api.friends, self.getUName()).items():
-        #     if (friend.__next__ == None):
-        #         print("Break out")
-        #         break;
-        #     stuff.append(friend)
-        #     print(stuff)
-        # return stuff
-        return None #TODO fix this
+        stuff = []
+        for follower in api.followers_ids(self.getUName()):
+            print(follower)
+            time.sleep(0.25)
+            stuff.append(api.get_user(follower).screen_name)
+            if len(stuff) >= 200:
+                break
+        print(stuff)
+        return stuff #TODO fix this
 
     def getIdDump(self):
-        # stuff = self.getAssociations()
-        # for thing in stuff:
-        #     try:
-        #         TwitterUser(thing)
-        #     except tweepy.TweepError() as err:
-        #         print("User not available, next!")
-        # print(self.getUName() + "has been torn apart :)")
-        return None #TODO fix this
+        stuff = self.getAssociations()
+        print("got all the stuff")
+        for thing in stuff:
+            try:
+                print("starting to push")
+                TI = TwitterUser(thing)
+                TI.pushAllTweets()
+                print("yay2")
+            except tweepy.TweepError() as err:
+                print("User not available, next!")
+        print(self.getUName() + "has been torn apart :)")
 
     def getJSON(self, tweet):
         return {
@@ -87,7 +91,7 @@ class TwitterUser:
         for tweet in tweets:
             push.send(self.getJSON(tweet))
         print("yay")
-        #self.getIdDump()
+        self.getIdDump()
 
 def noSillyTrump(stuff):  # Upon your request, ignore the bad look for now
     return stuff.replace("...", "").replace("..", ".").replace("…", "")

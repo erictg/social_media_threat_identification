@@ -1,8 +1,10 @@
-from main.helper import mining_push as push
-from main.mining import twitter_in as TI
+import mining_push as push
+import twitter_in as TI
+#
+# prezis = ["nathandaschle", "fivethirtyeight", "ppppolls",
+#           "MysteryPollster", "senatus", "SwingState", "nprpolitics"]
+#
+# for peep in prezis:
+#     for follower in TI.TwitterUser(peep):
 
-prezis = ["nathandaschle", "fivethirtyeight", "ppppolls",
-          "MysteryPollster", "senatus", "SwingState", "nprpolitics"]
-
-for peep in prezis:
-    TI.TwitterUser(peep).pushAllTweets()
+TI.TwitterUser("realDonaldTrump").pushAllTweets()
