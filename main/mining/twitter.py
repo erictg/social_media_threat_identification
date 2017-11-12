@@ -45,14 +45,6 @@ class TwitterUser:
             strText = noSillyTrump(strText)
         return strText
 
-        # stuff = self.getData(self.usr.user_timeline, "text")
-        # strText = ""
-        # strText += (self.usr.me().description + ' ')
-        # for txt in stuff:
-        #     strText += (txt + ' ')
-        # #strText = noSillyTrump(strText)
-        # return strText
-
     def getAssociations(self):
         stuff = self.getData(self.usr.friends, "screen_name")
         return stuff
