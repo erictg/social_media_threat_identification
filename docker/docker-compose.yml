@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  proc_logstash:
+    build:
+      context: .
+      dockerfile: /logstash.dockerfile
+    ports:
+      - "9001:9001/tcp"
+    depends_on:
+      - proc_elasticsearch
+  proc_elasticsearch:
+    build:
+      context: .
+      dockerfile: /elasticsearch.dockerfile
+    ports:
+      - "9201:9200"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    tty: true
+    volumes:
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  proc_kibana:
+    build:
+      context: .
+      dockerfile: kibana.dockerfile
+    volumes:
+      - ./kibana/:/usr/share/kibana/config
+    ports:
+      - "5601:5601"
+    depends_on:
+      - proc_elasticsearch
+networks:
+  default:
+    external:
+      name: external-net

@@ -102,3 +102,4 @@ ENV/
 
 #intellij
 .idea
+/nlp/models/
