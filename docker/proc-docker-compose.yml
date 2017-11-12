@@ -1,13 +1,13 @@
 version: '3.1'
 services:
-  proc_logstash:
-    build:
-      context: .
-      dockerfile: /logstash.dockerfile
-    ports:
-      - "9001:9001/tcp"
-    depends_on:
-      - proc_elasticsearch
+#  proc_logstash:
+#    build:
+#      context: .
+#      dockerfile: /logstash.dockerfile
+#    ports:
+#      - "9001:9001/tcp"
+#    depends_on:
+#      - proc_elasticsearch
   proc_elasticsearch:
     build:
       context: .
@@ -24,8 +24,13 @@ services:
       context: .
       dockerfile: kibana.dockerfile
     volumes:
-      - ./kibana/:/usr/share/kibana/config
+      - ./kibana.yml/:/usr/share/kibana/config/kibana.yml
     ports:
       - "5601:5601"
     depends_on:
       - proc_elasticsearch
+  rabbit:
+    image: rabbitmq:alpine
+    ports:
+    - "5672:5672"
+    - "15672:15672"
