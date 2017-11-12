@@ -14,24 +14,6 @@ auth.set_access_token(access_token, access_secret)
 
 api = tweepy.API(auth)
 
-#Get more data based on data?  Pulled from web.
-
-# class MyListener(StreamListener):
-#     def on_data(self, data):
-#         try:
-#             with open('python.json', 'a') as f:
-#                 f.write(data)
-#                 return True
-#         except BaseException as e:
-#             print("Error on_data: %s" % str(e))
-#         return True
-#
-#     def on_error(self, status):
-#         print(status)
-#         return True
-
-# sorted(set(list)) just a reference to myself, reviving python syntax.
-
 # TODO LIST (remove as programmed and completed)
 # TwitterUser
 #   Username
@@ -54,6 +36,12 @@ class TwitterUser:
     def getRName(self):
         return self.usr.name
 
+    def getText(self, *stuff):
+        strBlu = ""
+        for tweetxt in self.getTweets():
+            strBlu += tweetxt
+        return strBlu
+
     def getTweets(self):
         stuff = []
         stuff.append(self.usr.description)
@@ -64,14 +52,10 @@ class TwitterUser:
 
     @property
     def getAssociations(self): #Does not work
-        stuff = []
-        for friend in tweepy.Cursor(api.user_timeline(self.getUName())).items():
-            stuff.append(friend._json)
-        return stuff
+        return None #TODO Fix this weird shit
         # stuff = []
-        # friends = self.usr.friends
-        # for fri in friends:
-        #     stuff.append(fri)
+        # for friend in tweepy.Cursor(api.user_timeline(self.getUName())).items():
+        #     stuff.append(friend._json)
         # return stuff
 
     def getJSON(self):
@@ -79,39 +63,11 @@ class TwitterUser:
             "platform": "1",
             "username": str(self.getUName()),
             "realname": str(self.getRName()),
-            "text": self.getTweets(),
+            "text": self.getText(),
             "hyperlink": "https://twitter.com/"+self.getUName(),
-            "associations": [] #self.getAssociations
+            "associations": [], #self.getAssociations
+            "processed": False
         }
 
 def noSillyTrump(stuff):  # Upon your request, ignore the bad look for now
     return stuff.replace("...", "").replace("..", ".").replace("…", "")
-
-# def getTheJ(*stuff):
-#     sub_stuff = []
-#     try:
-#         for thing in stuff:
-#             sub_stuff.append(thing._json.getJSON())
-#     except TypeError as err:
-#         print("Wrong shit")
-#     return sub_stuff
-
-prezis = [
-    TwitterUser("realDonaldTrump"),
-    TwitterUser("PutinRF_Eng"),
-    TwitterUser("odenathb"),
-    TwitterUser("erictg97")
-    ]
-
-dumpableShit = []
-
-for fuckhead in prezis:
-    dumpableShit.append(fuckhead.getJSON())
-
-print(dumpableShit[0])
-
-# def getTwitterStream(searchterm): #Need to test
-#     twitter_stream = Stream(auth, MyListener())
-#     twitter_stream.filter(track=[searchterm])
-#     return twitter_stream
-#

@@ -9,42 +9,14 @@ import selenium as sele
 #   Img[]
 #       Profile img
 #       Posted img (if applicable)
-#   Friends
-#   Followers
-#   Followings
+#   Associations
+#       Friends
+#       Followers
+#       Followings
 
 #   Check for privacy and then search for accounts across aspects.
 
 class FacebookUser:
     #Note the abbreviations if any
-    def __init__(self, uName, text, imgs, friends, followers, following):
-        self.uName = getUName()
-        self.text = getText()
-        self.imgs = getImages()
-        self.friends = getFriends()
-        self.followers = getFollowers()
-        self.following = getFollowings()
-
-def getUName():
-    #TODO write this
-    return None
-
-def getText():
-    #TODO write this
-    return None
-
-def getImages():
-    #TODO write this
-    return None
-
-def getFriends():
-    #TODO write this
-    return None
-
-def getFollowers():
-    #TODO write this
-    return None
-
-def getFollowings():
-    #TODO write this
-    return None
+    def __init__(self, id):
+        self.id = id
