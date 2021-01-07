@@ -13,7 +13,7 @@ ipython-genutils==0.2.0
 jedi==0.11.0
 language-selector==0.1
 louis==2.6.4
-lxml==3.5.0
+lxml==4.6.2
 Markdown==2.6.9
 matplotlib==2.1.0
 nltk==3.2.5
