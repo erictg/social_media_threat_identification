@@ -1,5 +1,5 @@
 beautifulsoup4==4.4.1
-bleach==1.5.0
+bleach==3.3.0
 Brlapi==0.6.4
 chardet==2.3.0
 command-not-found==0.3
